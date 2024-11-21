@@ -1,0 +1,44 @@
+ 
+
+{shop_url}
+
+Dobrý deň {firstname} {lastname},
+
+Ďakujeme za nákup v obchode {shop_name}!
+
+Detaily objednávky
+
+Objednávka: {order_name} vytvorená dňa {date}
+
+Platba: {payment}
+
+Kód	Produkt	Jednotková cena	Množstvo	Celková cena  {products_txt} {discounts_txt}
+Produkty	{total_products}
+Zľavy	{total_discounts}
+Doručenie	{total_shipping}
+DPH celkom	{total_tax_paid}
+Celkom k úhrade	{total_paid}
+
+Doručenie
+
+Prepravca: {carrier}
+
+Platba: {payment}
+
+Recyklovaný obal: {recycled_packaging_label}
+
+Adresa doručenia
+
+{delivery_block_txt}
+
+Fakturačná adresa
+
+{invoice_block_txt}
+
+Follow your order and download your invoice on our store, go to the [História a detaily objednávok]({history_url}) section of your customer account.
+
+Ak máte účet hosťa, svoju objednávku môžete sledovať v našom obchode v sekcii [Sledovanie pre návštevníkov]({guest_tracking_url}).
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop-project.org/)
