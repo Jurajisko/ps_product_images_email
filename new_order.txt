@@ -1,0 +1,20 @@
+Nová objednávka bola prijatá!
+
+Meno zákazníka: {firstname} {lastname}
+E-mail: {email}
+Dátum objednávky: {date}
+
+Doručovacia adresa:
+{delivery_block_txt}
+
+Fakturačná adresa:
+{invoice_block_txt}
+
+Produkty v objednávke:
+{items}
+
+Spôsob platby: {payment}
+Spôsob dopravy: {carrier}
+Celková cena: {total_paid}
+
+Pre viac informácií o objednávke sa prihláste do administratívy.

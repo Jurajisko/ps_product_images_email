@@ -1,0 +1,60 @@
+{capture name='new_order_title'}Nová objednávka: #{$order_reference}{/capture}
+
+<!-- Predmet e-mailu: -->
+<p style="font-size: 16px; font-weight: bold;">Nová objednávka bola prijatá!</p>
+
+<!-- Zákaznícke údaje -->
+<p>
+    Meno zákazníka: <strong>{$customer.firstname} {$customer.lastname}</strong><br>
+    E-mail: <strong>{$customer.email}</strong><br>
+    Dátum objednávky: <strong>{$date}</strong>
+</p>
+
+<!-- Adresa doručenia -->
+<p>
+    <strong>Doručovacia adresa:</strong><br>
+    {$delivery_block_html}
+</p>
+
+<!-- Produkty v objednávke -->
+{if isset($items)}
+<table style="width: 100%; border-collapse: collapse;">
+    <thead>
+        <tr>
+            <th style="text-align: left;">Obrázok</th>
+            <th style="text-align: left;">Produkt</th>
+            <th style="text-align: center;">Množstvo</th>
+            <th style="text-align: right;">Cena</th>
+            <th style="text-align: right;">Celková cena</th>
+        </tr>
+    </thead>
+    <tbody>
+        {foreach $items as $item}
+        <tr style="background-color: {if $smarty.foreach.item.iteration % 2}#DDE2E6{else}#EBECEE{/if};">
+            <td style="padding: 10px;">
+                <img src="{$item.image_url}" alt="{$item.name}" style="max-width: 150px;">
+            </td>
+            <td style="padding: 10px;">
+                <strong>{$item.name}</strong><br />
+                {if $item.attributes}{$item.attributes}{/if}
+            </td>
+            <td style="padding: 10px; text-align: center;">{$item.quantity}</td>
+            <td style="padding: 10px; text-align: right;">{$item.unit_price}</td>
+            <td style="padding: 10px; text-align: right;">{$item.total_price}</td>
+        </tr>
+        {/foreach}
+    </tbody>
+</table>
+{/if}
+
+<!-- Platobné a prepravné informácie -->
+<p>
+    Spôsob platby: <strong>{$payment}</strong><br>
+    Spôsob dopravy: <strong>{$carrier}</strong><br>
+    Celková cena: <strong>{$total_paid}</strong>
+</p>
+
+<!-- Odkaz na spracovanie objednávky -->
+<p>
+    Pre viac informácií o objednávke sa prihláste do administratívy <a href="{$order_link}">tu</a>.
+</p>
