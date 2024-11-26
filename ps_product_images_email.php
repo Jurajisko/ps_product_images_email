@@ -26,12 +26,12 @@ class Ps_Product_Images_Email extends Module
 
 	public function install()
 	{
-		return parent::install() && $this->registerHook('displayProductImageInEmail') && $this->backupAndOverrideTemplate() && $this->registerHook('actionEmailSendBefore');
+		return parent::install() && $this->registerHook('displayProductImageInEmail') && $this->backupAndOverrideTemplates() && $this->registerHook('actionEmailSendBefore');
 	}
 
 	public function uninstall()
 	{
-		$this->restoreBackupTemplate();
+		$this->restoreBackupTemplates();
 		return parent::uninstall();
 	}
 
@@ -66,12 +66,14 @@ class Ps_Product_Images_Email extends Module
 		return '';
 	}
 
-
-	private function backupAndOverrideTemplate()
+	private function backupAndOverrideTemplates()
 	{
-		$rootMailTemplatePath = _PS_MAIL_DIR_ . '_partials/order_conf_product_list.tpl';
-		$backupTemplatePath = _PS_MAIL_DIR_ . '_partials/order_conf_product_list.tpl.bak';
-		$moduleTemplatePath = $this->getLocalPath() . 'views/templates/mails/_partials/order_conf_product_list.tpl';
+		return $this->backupAndOverrideTemplate(_PS_MAIL_DIR_ . '_partials/order_conf_product_list.tpl', $this->getLocalPath() . 'views/templates/mails/_partials/order_conf_product_list.tpl') && $this->backupAndOverrideTemplate(_PS_MAIL_DIR_ . 'sk/new_order.html', $this->getLocalPath() . 'mails/sk/new_order.html') && $this->backupAndOverrideTemplate(_PS_MAIL_DIR_ . 'sk/new_order.txt', $this->getLocalPath() . 'mails/sk/new_order.txt');
+	}
+
+	private function backupAndOverrideTemplate($rootMailTemplatePath, $moduleTemplatePath)
+	{
+		$backupTemplatePath = $rootMailTemplatePath . '.bak';
 
 		// Check if the original template exists and hasn't already been backed up
 		if (file_exists($rootMailTemplatePath) && !file_exists($backupTemplatePath)) {
@@ -85,10 +87,14 @@ class Ps_Product_Images_Email extends Module
 		return copy($moduleTemplatePath, $rootMailTemplatePath);
 	}
 
-	private function restoreBackupTemplate()
+	private function restoreBackupTemplates()
 	{
-		$rootMailTemplatePath = _PS_MAIL_DIR_ . '_partials/order_conf_product_list.tpl';
-		$backupTemplatePath = _PS_MAIL_DIR_ . '_partials/order_conf_product_list.tpl.bak';
+		return $this->restoreBackupTemplate(_PS_MAIL_DIR_ . '_partials/order_conf_product_list.tpl') && $this->restoreBackupTemplate(_PS_MAIL_DIR_ . 'sk/new_order.html') &&  $this->restoreBackupTemplate(_PS_MAIL_DIR_ . 'sk/new_order.txt');
+	}
+
+	private function restoreBackupTemplate($rootMailTemplatePath)
+	{
+		$backupTemplatePath = $rootMailTemplatePath . '.bak';
 
 		// If a backup exists, restore it
 		if (file_exists($backupTemplatePath)) {
